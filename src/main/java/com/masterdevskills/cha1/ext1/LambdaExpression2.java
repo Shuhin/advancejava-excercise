@@ -1,7 +1,26 @@
+/*
+ * #%L
+ * Advanced Java LIVE course-2020
+ * %%
+ * Copyright (C) 2020 MasterDevSkills.com
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 2 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/gpl-2.0.html>.
+ * #L%
+ */
+
 package com.masterdevskills.cha1.ext1;
-
-import static java.lang.System.currentTimeMillis;
-
 
 /**
  * @author A N M Bazlur Rahman @bazlur_rahman
@@ -17,20 +36,24 @@ public class LambdaExpression2 {
      * the time it takes to execute the method
      */
     public void executionTime(Executable executable) {
-        Executable x = () -> System.out.println("Execution Duration: " + currentTimeMillis());
-        x.execute();
+        long l = System.nanoTime();
+        executable.execute();
+        System.out.println("time" + (System.nanoTime() - l));
     }
 
     /* TODO: use the above of method here
      */
     public void run() {
-        //executionTime();
         executionTime(() -> {
-            System.out.println("Executing...");
+            for (int i = 0; i < 100; i++) {
+                System.out.println("Executing...");
+            }
         });
     }
+
 }
+
 @FunctionalInterface
-    interface Executable {
-        void execute();
+interface Executable {
+    void execute();
 }
