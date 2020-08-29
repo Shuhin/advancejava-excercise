@@ -31,6 +31,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -49,7 +50,7 @@ public class RealMovieService {
 	public long countMovies() {
 		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
 		return allMovies.stream()
-						.count();
+				.count();
 	}
 
 	/**
@@ -62,7 +63,10 @@ public class RealMovieService {
 	 */
 	public List<Movie> findAllMoviesInYear(int year) {
 
-		throw new RuntimeException("TODO://ImplementIt");
+		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
+		return allMovies.stream()
+				.filter(movie -> movie.getYear().equals(year))
+				.collect(Collectors.toList());
 	}
 
 	/**
@@ -76,7 +80,10 @@ public class RealMovieService {
 
 	public List<Movie> findAllMovieRated(String rated) {
 
-		throw new RuntimeException("TODO://ImplementIt");
+		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
+		return allMovies.stream()
+				.filter(movie -> movie.getRated().equals(rated))
+				.collect(Collectors.toList());
 	}
 
 	/**
@@ -90,7 +97,10 @@ public class RealMovieService {
 
 	public long countMoviesWithRated(String rated) {
 
-		throw new RuntimeException("TODO://ImplementIt");
+		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
+		return allMovies.stream()
+				.filter(movie -> movie.getRated().equals(rated))
+				.count();
 	}
 
 	/**
@@ -103,7 +113,10 @@ public class RealMovieService {
 	 */
 	public List<Movie> findMoviesWithImdbRatingEqualAndGreaterThan(double rating) {
 
-		throw new RuntimeException("TODO://ImplementIt");
+		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
+		return allMovies.stream()
+				.filter(movie -> movie.getImdbRating() >= rating)
+				.collect(Collectors.toList());
 	}
 
 	/**
@@ -116,7 +129,10 @@ public class RealMovieService {
 	 */
 	public List<Movie> findMoviesOfDirector(String director) {
 
-		throw new RuntimeException("TODO://ImplementIt");
+		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
+		return allMovies.stream()
+				.filter(movie -> movie.getDirector().equals(director))
+				.collect(Collectors.toList());
 	}
 
 	/**
@@ -127,7 +143,11 @@ public class RealMovieService {
 	 */
 	public List<String> listMovieTitleRated(String rated) {
 
-		throw new RuntimeException("TODO://ImplementIt");
+		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
+		return allMovies.stream()
+				.filter(movie -> movie.getRated().equals(rated))
+				.map(movie -> movie.getTitle())
+				.collect(Collectors.toList());
 	}
 
 	/**
@@ -141,7 +161,12 @@ public class RealMovieService {
 	 */
 	public List<String> listUniqueMovieTitleRated(String rated) {
 
-		throw new RuntimeException("TODO://ImplementIt");
+		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
+		return allMovies.stream()
+				.filter(movie -> movie.getRated().equals(rated))
+				.map(movie -> movie.getTitle())
+				.distinct()
+				.collect(Collectors.toList());
 	}
 
 	/**
@@ -153,7 +178,11 @@ public class RealMovieService {
 	 */
 	public Optional<String> findAnyMovieTitleWithImdbRatingEqualOrGreater(double rating) {
 
-		throw new RuntimeException("TODO://ImplementIt");
+		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
+		return allMovies.stream()
+				.filter(movie -> movie.getImdbRating() >= (rating))
+				.map(movie -> movie.getTitle())
+				.findAny();
 	}
 
 	/**
@@ -166,7 +195,11 @@ public class RealMovieService {
 	 */
 	public Optional<String> findFirstMovieTitleWithImdbRatingEqualOrGreater(double rating) {
 
-		throw new RuntimeException("TODO://ImplementIt");
+		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
+		return allMovies.stream()
+				.filter(movie -> movie.getImdbRating() >= (rating))
+				.map(movie -> movie.getTitle())
+				.findFirst();
 	}
 
 	/**
@@ -176,8 +209,13 @@ public class RealMovieService {
 	 * @see Stream#sorted(Comparator)
 	 */
 	public List<Movie> sortMovieByTitle() {
-		throw new RuntimeException("TODO://ImplementIt");
+		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
+		return allMovies.stream()
+				.sorted(Comparator.comparing(Movie::getTitle))
+				.collect(Collectors.toList());
 	}
+
+	//.sorted((movieA,movieB) -> movieA.getTitle().compareTo(movieB.getTitle()))
 
 	/**
 	 * TODO: sort all the movies by their imdb rating, then by their title(if rating are equal) and return the sorted list
@@ -188,7 +226,10 @@ public class RealMovieService {
 	 */
 	public List<Movie> sortByImdbRatingAndThenTitle() {
 
-		throw new RuntimeException("TODO://ImplementIt");
+		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
+		return allMovies.stream()
+				.sorted(Comparator.comparing(Movie::getImdbRating).thenComparing(Movie::getTitle))
+				.collect(Collectors.toList());
 	}
 
 	/**
@@ -199,7 +240,9 @@ public class RealMovieService {
 	 */
 
 	public Optional<Movie> findTopRatedMovie() {
-		throw new RuntimeException("TODO://ImplementIt");
+		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
+		return allMovies.stream()
+				.max(Comparator.comparing(Movie::getImdbRating));
 	}
 
 	/**
@@ -209,7 +252,9 @@ public class RealMovieService {
 	 */
 
 	public Optional<Movie> findMinRatedMovie() {
-		throw new RuntimeException("TODO://ImplementIt");
+		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
+		return allMovies.stream()
+				.min(Comparator.comparing(Movie::getImdbRating));
 	}
 
 	/**
@@ -219,17 +264,24 @@ public class RealMovieService {
 	 */
 
 	public Map<String, Long> findNumberOfDistinctMoviesOfEachDirector() {
-		throw new RuntimeException("TODO://ImplementIt");
+		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
+		return allMovies.stream()
+				.distinct()
+				.collect(Collectors.groupingBy(Movie::getDirector,
+						Collectors.counting()));
 	}
 
 	/**
-	 * TODO:  find number movies title by years comma separated
+	 * TODO:  find number of movies title by years comma separated
 	 *
 	 * @return map containing year and movie tiles comma separated
 	 */
 	public Map<String, String> getMoviesByYear() {
-		throw new RuntimeException("TODO://ImplementIt");
+		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
+		return allMovies.stream()
+				.collect(Collectors.groupingBy(Movie::getYear,
+						Collectors.mapping(Movie::getTitle,
+								Collectors.joining(","))));
 	}
 }
-
 

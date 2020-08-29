@@ -86,4 +86,57 @@ public class Movie {
 	private String website;
 	@JsonProperty("Response")
 	private String response;
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setRated(String rated) {
+		this.rated = rated;
+	}
+
+	public String getRated() {
+		return rated;
+	}
+
+	public void setReleased(String released) {
+		this.released = released;
+	}
+
+	public String getReleased() {
+		return released;
+	}
+
+
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public String getDirector() {
+		return director;
+	}
+
+	public void setImdbRating(Double imdbRating) {
+		this.imdbRating = imdbRating;
+	}
+
+	public Double getImdbRating() {
+		return imdbRating;
+	}
 }

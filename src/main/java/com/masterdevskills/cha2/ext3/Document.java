@@ -23,6 +23,14 @@ public class Document {
 		this.pages = List.copyOf(pages);
 	}
 
+	public String getTitle() {
+		return this.title;
+	}
+
+	public List<Page> getPages() {
+		return this.pages;
+	}
+
 	private Page appendFooter(Page original) {
 		String footer = "Document: " + getTitle();
 		return new Page(format("%s%n%s", original.getContent(), footer));
@@ -45,6 +53,9 @@ public class Document {
 
 		public Page(String content) {
 			this.content = content;
+		}
+		public String getContent() {
+			return this.content;
 		}
 	}
 }
