@@ -48,9 +48,7 @@ public class InMemoryMovieService {
 
 	public List<Movie> findAllMovies() {
 		try {
-			var src = new File(
-							getClass().getClassLoader().getResource("movies.json").getFile()
-			);
+			var src = new File("movies.json");
 			return objectMapper.readValue(src, new TypeReference<>() {
 			});
 		} catch (IOException ioException) {

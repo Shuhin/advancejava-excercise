@@ -61,7 +61,7 @@ public class RealMovieService {
 	 * @see java.util.stream.Stream#filter(Predicate)
 	 * @see java.util.stream.Stream#collect(Collector)
 	 */
-	public List<Movie> findAllMoviesInYear(int year) {
+	public List<Movie> findAllMoviesInYear(String year) {
 
 		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
 		return allMovies.stream()
@@ -180,8 +180,8 @@ public class RealMovieService {
 
 		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
 		return allMovies.stream()
-				.filter(movie -> movie.getImdbRating() >= (rating))
-				.map(movie -> movie.getTitle())
+				.filter(movie -> movie.getImdbRating() >= rating)
+				.map(Movie::getTitle)
 				.findAny();
 	}
 
@@ -197,8 +197,8 @@ public class RealMovieService {
 
 		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
 		return allMovies.stream()
-				.filter(movie -> movie.getImdbRating() >= (rating))
-				.map(movie -> movie.getTitle())
+				.filter(movie -> movie.getImdbRating() >= rating)
+				.map(Movie::getTitle)
 				.findFirst();
 	}
 
@@ -279,9 +279,10 @@ public class RealMovieService {
 	public Map<String, String> getMoviesByYear() {
 		var allMovies = InMemoryMovieService.getInstance().findAllMovies();
 		return allMovies.stream()
-				.collect(Collectors.groupingBy(Movie::getYear,
-						Collectors.mapping(Movie::getTitle,
-								Collectors.joining(","))));
+				.collect(Collectors.toMap(Movie::getYear, Movie::getTitle, (title1, title2) -> {
+                 return String.join(", ",title1, title2);
+				}));
 	}
 }
+
 
