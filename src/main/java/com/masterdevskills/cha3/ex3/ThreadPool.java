@@ -1,10 +1,14 @@
 package com.masterdevskills.cha3.ex3;
 
+import java.util.concurrent.*;
 
 //TODO: Implement this thread pool using ExecutorService
 public class ThreadPool {
 
+	private ThreadPoolExecutor pool;
+
 	public ThreadPool(int poolSize) {
+		pool = new ThreadPoolExecutor(poolSize, poolSize, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
 	}
 
 	private Runnable take() throws InterruptedException {
@@ -12,16 +16,15 @@ public class ThreadPool {
 	}
 
 	public void submit(Runnable job) {
-
+		pool.submit(job);
 	}
 
 	public int getRunQueueLength() {
-
-		throw new UnsupportedOperationException("not implemented");
+		return pool.getQueue().size();
 	}
 
 	public void shutdown() {
-
+		pool.shutdownNow();
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.masterdevskills.cha3.ext4;
 
+import com.masterdevskills.cha3.ext4.JdbcConfig;
+import com.masterdevskills.cha3.ext4.JdbcConnectionPool;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
